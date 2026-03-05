@@ -1,19 +1,10 @@
 import React from "react";
-import { deleteTask, updateTask } from "../services/api";
+import { deleteTask } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function TaskList({ tasks, refreshTasks }) {
 
-  const toggleStatus = async (task) => {
-
-    const newStatus =
-      task.status === "Pending"
-        ? "Completed"
-        : "Pending";
-
-    await updateTask(task._id, { status: newStatus });
-
-    refreshTasks();
-  };
+  const navigate = useNavigate();
 
   const removeTask = async (id) => {
     await deleteTask(id);
@@ -54,12 +45,11 @@ function TaskList({ tasks, refreshTasks }) {
                 <td>{new Date(task.createdAt).toLocaleDateString()}</td>
                 <td style={{whiteSpace: 'nowrap', minWidth: 180, textAlign: 'center'}}>
                   <button
-                    className="btn btn-outline-success btn-sm me-2"
-                    onClick={() => toggleStatus(task)}
-                    style={{minWidth: 90}}
+                    className="btn btn-outline-primary btn-sm me-2"
+                    onClick={() => navigate(`/edit/${task._id}`)}
+                    style={{minWidth: 70}}
                   >
-                    <i className="bi bi-check-circle me-1"></i>
-                    {task.status === "Completed" ? "Mark Pending" : "Complete"}
+                    <i className="bi bi-pencil me-1"></i>Edit
                   </button>
                   <button
                     className="btn btn-outline-danger btn-sm"

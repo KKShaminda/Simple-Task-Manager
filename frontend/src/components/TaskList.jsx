@@ -27,11 +27,11 @@ function TaskList({ tasks, refreshTasks }) {
         <table className="table align-middle table-hover">
           <thead className="table-light">
             <tr>
-              <th>Title</th>
+              <th style={{minWidth: 120, maxWidth: 120}}>Title</th>
               <th>Description</th>
-              <th>Status</th>
+              <th style={{minWidth: 120, maxWidth: 120, textAlign: 'center'}}>Status</th>
               <th>Date</th>
-              <th>Actions</th>
+              <th style={{minWidth: 180, textAlign: 'center'}}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -39,22 +39,24 @@ function TaskList({ tasks, refreshTasks }) {
               <tr key={task._id}>
                 <td className="fw-bold">{task.title}</td>
                 <td>{task.description}</td>
-                <td>
+                <td style={{minWidth: 120, maxWidth: 120, textAlign: 'center'}}>
                   <span
                     className={
                       task.status === "Completed"
-                        ? "badge bg-success px-3 py-2"
-                        : "badge bg-warning text-dark px-3 py-2"
+                        ? "badge bg-success d-inline-block w-100 text-center fw-bold"
+                        : "badge bg-warning text-dark d-inline-block w-100 text-center fw-bold"
                     }
+                    style={{minWidth: 100, maxWidth: 120}}
                   >
                     {task.status}
                   </span>
                 </td>
                 <td>{new Date(task.createdAt).toLocaleDateString()}</td>
-                <td>
+                <td style={{whiteSpace: 'nowrap', minWidth: 180, textAlign: 'center'}}>
                   <button
                     className="btn btn-outline-success btn-sm me-2"
                     onClick={() => toggleStatus(task)}
+                    style={{minWidth: 90}}
                   >
                     <i className="bi bi-check-circle me-1"></i>
                     {task.status === "Completed" ? "Mark Pending" : "Complete"}
@@ -62,6 +64,7 @@ function TaskList({ tasks, refreshTasks }) {
                   <button
                     className="btn btn-outline-danger btn-sm"
                     onClick={() => removeTask(task._id)}
+                    style={{minWidth: 70}}
                   >
                     <i className="bi bi-trash me-1"></i>Delete
                   </button>
